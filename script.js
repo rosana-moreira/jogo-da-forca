@@ -22,10 +22,10 @@ const numTentativas = 7;
 const opacidadeOlhos = 0.3;
 
 const categorias = {
-    Frutas:["Banana","Maçã", "Laranja","Uva", "Melancia", "Melão"],
-    Profissoes:["Engenheiro","Desenvolvedor","Advogado", "Agronomo"],
-    Animais : ["Gato", "Galinha", "cavalo","Cachorro", "Raposa"],
-    Cores: ["amarelo","azul", "Laranja", "Roxo", "Rosa", "Vermelho"]
+    Frutas:["banana","maça", "laranja","uva", "melancia", "melao"],
+    Profissoes:["engenheiro","desenvolvedor","advogado", "agronomo"],
+    Animais : ["gato", "galinha", "cavalo","cachorro", "raposa"],
+    Cores: ["amarelo","azul", "laranja", "roxo", "rosa", "vermelho"]
 };
 
 function retornaArrayCategorias(){
@@ -59,7 +59,47 @@ function ocultaPalavra(){
 function exibePalavraInterface(palavra){
     palavraInterface.innerHTML = palavra;
    
-}
+};
+
+function tentativa(letra){
+    if(palavraProposta.includes(letra)){
+        atualizaPalavraInterface(letra);
+    }else{
+        letrasErradasArray.push(letra);
+        letrasErradas.innerHTML = "Letras Erradas: " + letrasErradasArray;
+        if(partesBoneco.length > indiceBoneco){
+            desenhaBoneco();
+        }
+    }
+    verificaFimDeJogo();
+    
+};
+
+function atualizaPalavraInterface(letra){
+    let palavraAux ="";
+    for(let i = 0; i < palavraProposta.length; i++){
+        if(palavraProposta[i] === letra){
+            palavraAux += letra;
+        }else if(palavraInterface.innerHTML[i] !="-"){
+            palavraAux += palavraInterface.innerHTML[i];
+             }else{
+                palavraAux += "-";
+        }
+
+    }
+    exibePalavraInterface(palavraAux);
+};
+
+function verificaFimDeJogo(){
+    if(!palavraInterface.innerHTML.includes("-")){
+        exibePalavraInterface("Voce Venceu!!!");
+        window.removeEventListener("keypress",retornaLetra);
+        }else if(letrasErradasArray.length >= numTentativas){
+            desenhaOlhos();
+            exibePalavraInterface("Voce Perdeu!!!");
+            window.removeEventListener("keypress",retornaLetra);
+        }
+    };
 
 /*
 Recebe o evento do teclado e passa apenas o valor da letra para a função tentativa
@@ -107,6 +147,7 @@ function iniciaJogo(){
     exibeCategoria();
     definePalavraProposta();
     letrasErradas.innerHTML = "Letras erradas: ";
+    ocultaBoneco();
     window.addEventListener("keypress", retornaLetra);
 }
 

@@ -6,7 +6,7 @@ Jogo desenvolvido para curso da IBM Winning Woman - Primeira Fase.
 </p>
 
 <h1 align="center">
-  <img alt="logo" title="#logo" src="./assets/git.gif" />
+  <img alt="logo" title="#logo" src="./assets/git.png" />
 </h1>
 
 ### 🎲 Executando o codigo fonte
